@@ -22,4 +22,5 @@ from AppTrabajoEmpresa import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.inicio, name='LandPage'),
+    path('propuesta2/', views.inicio2, name='propuesta2'),
 ]

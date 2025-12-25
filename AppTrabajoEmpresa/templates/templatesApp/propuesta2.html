@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta 2: Industrial Moderno</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <style>
+        :root {
+            --primary-color: #ff6b00; /* Naranja Construcción */
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --text-light: #f5f5f5;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Arial Black', sans-serif; /* Tipografía fuerte */
+        }
+
+        /* --- ANIMACIONES --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-enter {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.95);
+            border-bottom: 2px solid var(--primary-color);
+        }
+        .nav-link { color: white !important; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; }
+        .nav-link:hover { color: var(--primary-color) !important; }
+        .btn-outline-primary {
+            color: var(--primary-color); border-color: var(--primary-color);
+            border-radius: 0; /* Botones cuadrados (industrial) */
+        }
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color); border-color: var(--primary-color); color: white;
+        }
+
+        /* --- HERO SECTION (Distinta: Texto Gigante) --- */
+        .hero-industrial {
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), #333; /* Fondo simulado */
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Elemento decorativo de fondo */
+        .hero-industrial::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -20%;
+            width: 800px; height: 800px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.1;
+            filter: blur(100px);
+        }
+
+        .hero-text h1 {
+            font-size: 5rem;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+        @media (max-width: 768px) { .hero-text h1 { font-size: 3rem; } }
+
+        /* --- SERVICIOS (Lista Lateral) --- */
+        .service-list-item {
+            border-bottom: 1px solid #333;
+            padding: 30px 0;
+            transition: all 0.3s ease;
+        }
+        .service-list-item:hover {
+            background-color: #1e1e1e;
+            padding-left: 20px;
+            border-left: 5px solid var(--primary-color);
+        }
+        .service-icon { font-size: 2rem; color: var(--primary-color); margin-right: 20px; }
+
+        /* --- PROYECTOS (Bento Grid / Mosaico) --- */
+        /* CSS GRID REAL */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 300px);
+            gap: 15px;
+        }
+        
+        .grid-item {
+            position: relative;
+            background-color: #333;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        /* Hacer que el primer item sea grande */
+        .item-large {
+            grid-column: span 2;
+            grid-row: span 2;
+            background-color: #444;
+        }
+        
+        .item-wide {
+            grid-column: span 2;
+            background-color: #555;
+        }
+
+        /* Responsive Grid para celulares */
+        @media (max-width: 768px) {
+            .portfolio-grid { display: flex; flex-direction: column; }
+            .grid-item { height: 250px; }
+        }
+
+        /* Efecto Hover en Proyectos */
+        .overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 107, 0, 0.8);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 0.4s ease;
+        }
+        .grid-item:hover .overlay { opacity: 1; }
+        
+        .text-muted {
+            color: var(--text-secondary) !important;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-light);
+        }
+        /* Placeholder visual */
+        .placeholder-text {
+            position: absolute; bottom: 10px; left: 10px;
+            font-size: 3rem; color: rgba(255,255,255,0.1); font-weight: bold;
+        }
+
+        /* --- CONTACTO --- */
+        .form-control {
+            background-color: #2a2a2a; border: none; color: white;
+            border-radius: 0; padding: 15px;
+        }
+        .form-control:focus {
+            background-color: #333; color: white; box-shadow: none; border-left: 3px solid var(--primary-color);
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand fw-bold text-uppercase" href="#">Nombre de la empresa<span style="color:var(--primary-color)">.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#">Proyectos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Servicios</a></li>
+                    <li class="nav-item ms-4">
+                        <a href="#contacto" class="btn btn-outline-primary fw-bold px-4">COTIZAR</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-industrial">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 animate-enter">
+                    <div class="hero-text">
+                        <h1>Construimos<br><span style="color: var(--primary-color); -webkit-text-stroke: 1px white;">El Futuro</span></h1>
+                    </div>
+                    <p class="lead mt-4 text-white-50" style="max-width: 500px;">
+                        Especialistas en obras civiles y soluciones industriales. 
+                        Donde la ingeniería se encuentra con el diseño.
+                    </p>
+                    <div class="mt-5 d-flex gap-3">
+                        <button class="btn btn-primary btn-lg rounded-0 px-5" style="background: var(--primary-color); border:none;">VER OBRAS</button>
+                        <button class="btn btn-outline-light btn-lg rounded-0 px-5">CONTACTO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-4 mb-4">
+                    <h2 class="display-4 fw-bold">Nuestros<br>Servicios</h2>
+                    <p class="text-muted">Soluciones integrales para cada etapa de tu proyecto.</p>
+                    <div class="p-4 mt-4" style="border: 1px dashed #444;">
+                        <h4 style="color:var(--primary-color)">Visita Técnica</h4>
+                        <p class="small text-muted mb-3">Agenda una evaluación en terreno hoy mismo.</p>
+                        <button class="btn btn-sm btn-light w-100 rounded-0">Agendar Ahora</button>
+                    </div>
+                </div>
+                <div class="col-lg-7 offset-lg-1">
+                    <div class="service-list-item d-flex align-items-center">
+                        <i class="bi bi-cone-striped service-icon"></i>
+                        <div>
+                            <h3 class="h4 mb-1">Construcción General</h3>
+                            <p class="mb-0 text-muted small">Obras civiles, ampliaciones y obra gruesa.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="service-list-item d-flex align-items-center">
+                        <i class="bi bi-tools service-icon"></i>
+                        <div>
+                            <h3 class="h4 mb-1">Mantenimiento Industrial</h3>
+                            <p class="mb-0 text-muted small">Reparaciones correctivas y preventivas.</p>
+                        </div>
+                    </div>
+
+                    <div class="service-list-item d-flex align-items-center">
+                        <i class="bi bi-building-gear service-icon"></i>
+                        <div>
+                            <h3 class="h4 mb-1">Proyectos "Llave en Mano"</h3>
+                            <p class="mb-0 text-muted small">Nos encargamos desde el diseño hasta la entrega.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-black">
+        <div class="container-fluid px-0">
+            <div class="container mb-4 d-flex justify-content-between align-items-end">
+                <h2 class="display-5 fw-bold">Últimos Proyectos</h2>
+                <div class="text-muted">Desliza para ver más &rarr;</div>
+            </div>
+
+            <div class="portfolio-grid">
+                
+                <div class="grid-item item-large">
+                    <span class="placeholder-text">01</span>
+                    <div style="width:100%; height:100%; background: #333; display:flex; align-items:center; justify-content:center; color:#555;">IMG GRANDE (Terminado)</div>
+                    <div class="overlay">
+                        <h3>Edificio Corporativo</h3>
+                        <p>Santiago Centro - 2024</p>
+                    </div>
+                </div>
+
+                <div class="grid-item">
+                    <span class="placeholder-text">02</span>
+                    <span class="badge bg-warning text-dark position-absolute top-0 end-0 m-3">EN CURSO</span>
+                    <div style="width:100%; height:100%; background: #252525; display:flex; align-items:center; justify-content:center; color:#444;">IMG</div>
+                    <div class="overlay">
+                        <h3>Remodelación Norte</h3>
+                        <div class="progress w-75 mt-2" style="height: 5px;">
+                            <div class="progress-bar bg-dark" style="width: 45%"></div>
+                        </div>
+                        <small class="mt-1">45% Avance</small>
+                    </div>
+                </div>
+
+                <div class="grid-item">
+                    <span class="placeholder-text">03</span>
+                    <div style="width:100%; height:100%; background: #2a2a2a; display:flex; align-items:center; justify-content:center; color:#444;">IMG</div>
+                    <div class="overlay">
+                        <h3>Casa de Playa</h3>
+                    </div>
+                </div>
+
+                <div class="grid-item item-wide">
+                    <span class="placeholder-text">04</span>
+                    <div style="width:100%; height:100%; background: #1f1f1f; display:flex; align-items:center; justify-content:center; color:#444;">IMG PANORÁMICA</div>
+                    <div class="overlay">
+                        <h3>Centro Logístico</h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section id="contacto">
+        <div class="row g-0">
+            <div class="col-lg-5 bg-dark p-5 d-flex flex-column justify-content-center border-end border-secondary">
+                <h2 class="fw-bold mb-4">¿Tienes un proyecto?</h2>
+                <p class="lead text-white-50 mb-5">Hablemos de números. Solicita tu cotización.</p>
+                
+                <div class="mb-4">
+                    <h5 class="text-uppercase" style="color: var(--primary-color)">Oficina</h5>
+                    <p class="text-white">Av. Providencia 1234, Santiago</p>
+                </div>
+                <div class="mb-4">
+                    <h5 class="text-uppercase" style="color: var(--primary-color)">Contacto Directo</h5>
+                    <p class="text-white">+56 9 8765 4321<br>contacto@empresa.cl</p>
+                </div>
+                
+                <div class="d-flex gap-3 mt-4">
+                    <a href="#" class="btn btn-outline-light rounded-circle" style="width:40px; height:40px;"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="btn btn-outline-light rounded-circle" style="width:40px; height:40px;"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="btn btn-outline-light rounded-circle" style="width:40px; height:40px;"><i class="bi bi-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-7 p-5" style="background-color: #1a1a1a;">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="text-white-50 small mb-1">NOMBRE</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-white-50 small mb-1">EMAIL</label>
+                        <input type="email" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-white-50 small mb-1">TIPO DE PROYECTO</label>
+                        <select class="form-control">
+                            <option>Construcción</option>
+                            <option>Remodelación</option>
+                            <option>Consultoría</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="text-white-50 small mb-1">DETALLES</label>
+                        <textarea class="form-control" rows="4"></textarea>
+                    </div>
+                    <button class="btn btn-primary w-100 py-3 fw-bold rounded-0" style="background-color: var(--primary-color); border:none;">ENVIAR MENSAJE &rarr;</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-4 text-center text-muted small bg-black">
+        &copy; 2025 Nombre de la empresa. Todos los derechos reservados.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,3 +127,39 @@ STATICFILES_DIRS = [
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+# --- CONFIGURACIÓN DE LA PAGINA ADMINISTRADOR ---
+
+JAZZMIN_SETTINGS = {
+    # Título en la pestaña del navegador
+    "site_title": "Admin Grupo R&M",
+    
+    # Título en la pantalla de login
+    "site_header": "Panel de Administración",
+    
+    # Logo para el menú
+    "site_logo": "img/Icon.jpg",
+    
+    # Mensaje de bienvenida en el Login
+    "welcome_sign": "Bienvenido al Sistema de Gestión R&M",
+    
+    # Copyright al final de la página
+    "copyright": "Grupo R&M SpA",
+    
+    # El menú lateral es más moderno
+    "navigation_expanded": True,
+    
+    # Iconos para tus aplicaciones (Busca iconos en: https://fontawesome.com/v5/search)
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "web.FechaBloqueada": "fas fa-calendar-times", # Icono de calendario tachado
+    },
+}
+
+# Colores y estilo (Opcional, para que combine con el azul de la empresa)
+JAZZMIN_UI_TWEAKS = {
+    "theme": "flatly",   # Tema claro y moderno
+    #"theme": "darkly",  # Si prefieres modo oscuro
+}

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import FechaBloqueada
 from django.utils.html import format_html
+from .models import Proyecto
 
 @admin.register(FechaBloqueada)
 class FechaBloqueadaAdmin(admin.ModelAdmin):
@@ -46,3 +47,8 @@ class FechaBloqueadaAdmin(admin.ModelAdmin):
             'https://npmcdn.com/flatpickr/dist/l10n/es.js',
             'js/admin_calendar.js',
         )
+
+@admin.register(Proyecto)
+class ProyectoAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'categoria', 'fecha_creacion')
+    list_filter = ('categoria',)

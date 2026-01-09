@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import json
 from datetime import date
-from .models import FechaBloqueada
+from .models import FechaBloqueada, Proyecto
 from .utils import obtener_feriados
 
 # Create your views here.
@@ -21,12 +21,23 @@ def index(request):
     # 4. Convertir a lista y serializar
     lista_final = list(todas_fechas)
     fechas_json = json.dumps(lista_final)
+    ultimos_proyectos = Proyecto.objects.all()[:4]
 
     context = {
-        'fechas_ocupadas': fechas_json
+        'fechas_ocupadas': fechas_json,
+        'ultimos_proyectos': ultimos_proyectos
     }
     
     return render(request, 'index.html', context)
 
 def nosotros(request):
-    return render(request, 'templatesApp/about.html')
+    return render(request, 'about.html')
+
+
+def portfolio(request):
+    todos_los_proyectos = Proyecto.objects.all()
+    
+    context = {
+        'proyectos': todos_los_proyectos
+    }
+    return render(request, 'portfolio.html', context)

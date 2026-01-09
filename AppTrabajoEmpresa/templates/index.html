@@ -34,11 +34,11 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav align-items-center">
-                        <li class="nav-item"><a class="nav-link" href="#">Proyectos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Servicios</a></li>
                         <li class="nav-item"><a class="nav-link" href="nosotros">Nosotros</a></li>
                         <li class="nav-item ms-4">
-                            <a href="#contacto" class="btn btn-outline-primary fw-bold px-4">COTIZAR</a>
+                            <a href="#cotizar" class="btn btn-outline-primary fw-bold px-4">COTIZAR</a>
                         </li>
                     </ul>
                 </div>
@@ -59,15 +59,17 @@
                         </p>
                         <div class="mt-5 d-flex gap-3">
                             <button class="btn btn-primary btn-lg rounded-0 px-5"
-                                style="background: var(--primary-color); border:none;">VER OBRAS</button>
-                            <button class="btn btn-outline-dark btn-lg rounded-0 px-5">CONTACTO</button>
+                                style="background: var(--primary-color); border:none;" href="#proyectos">VER
+                                OBRAS</button>
+                            <button class="btn btn-outline-dark btn-lg rounded-0 px-5"
+                                href="#contacto">CONTACTO</button>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
 
-        <section class="py-5">
+        <section class="py-5" id="cotizar">
             <div class="container py-5">
                 <div class="row align-items-center">
                     <div class="col-lg-4 mb-4">
@@ -131,61 +133,36 @@
             </div>
         </section>
 
-        <section class="py-5 bg-white">
+        <section class="py-5 bg-white" id="proyectos">
             <div class="container-fluid px-0">
                 <div class="container mb-4 d-flex justify-content-between align-items-end">
                     <h2 class="display-5 fw-bold">Últimos Proyectos</h2>
-                    <div class="text-muted">Desliza para ver más &rarr;</div>
+                    <a href="{% url 'Portfolio' %}" class="text-muted text-decoration-none fw-bold">Ver más &rarr;</a>
                 </div>
 
                 <div class="portfolio-grid">
-
-                    <div class="grid-item item-large">
-                        <span class="placeholder-text">01</span>
+                    {% for proyecto in ultimos_proyectos %}
+                    <div
+                        class="grid-item {% if forloop.counter == 1 %}item-large{% endif %} {% if forloop.counter == 4 %}item-wide{% endif %}">
+                        <span class="placeholder-text">0{{ forloop.counter }}</span>
+                        {% if proyecto.imagen %}
+                        <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.titulo }}"
+                            style="width:100%; height:100%; object-fit:cover;">
+                        {% else %}
                         <div
                             style="width:100%; height:100%; background: #cbd5e1; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">
-                            IMG GRANDE (Terminado)</div>
+                            SIN IMAGEN</div>
+                        {% endif %}
                         <div class="overlay">
-                            <h3>Edificio Corporativo</h3>
-                            <p>Santiago Centro - 2024</p>
+                            <h3>{{ proyecto.titulo }}</h3>
+                            <p>{{ proyecto.descripcion }}</p>
                         </div>
                     </div>
-
-                    <div class="grid-item">
-                        <span class="placeholder-text">02</span>
-                        <span class="badge bg-warning text-dark position-absolute top-0 end-0 m-3">EN CURSO</span>
-                        <div
-                            style="width:100%; height:100%; background: #e2e8f0; display:flex; align-items:center; justify-content:center; color:#64748b;">
-                            IMG</div>
-                        <div class="overlay">
-                            <h3>Remodelación Norte</h3>
-                            <div class="progress w-75 mt-2" style="height: 5px;">
-                                <div class="progress-bar bg-dark" style="width: 45%"></div>
-                            </div>
-                            <small class="mt-1">45% Avance</small>
-                        </div>
+                    {% empty %}
+                    <div class="col-12 text-center py-5">
+                        <p class="text-muted">Aún no hay proyectos cargados.</p>
                     </div>
-
-                    <div class="grid-item">
-                        <span class="placeholder-text">03</span>
-                        <div
-                            style="width:100%; height:100%; background: #94a3b8; display:flex; align-items:center; justify-content:center; color:white;">
-                            IMG</div>
-                        <div class="overlay">
-                            <h3>Casa de Playa</h3>
-                        </div>
-                    </div>
-
-                    <div class="grid-item item-wide">
-                        <span class="placeholder-text">04</span>
-                        <div
-                            style="width:100%; height:100%; background: #64748b; display:flex; align-items:center; justify-content:center; color:white;">
-                            IMG PANORÁMICA</div>
-                        <div class="overlay">
-                            <h3>Centro Logístico</h3>
-                        </div>
-                    </div>
-
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -198,10 +175,6 @@
                     <h2 class="fw-bold mb-4">¿Tienes un proyecto?</h2>
                     <p class="lead text-muted mb-5">Hablemos de números. Solicita tu cotización.</p>
 
-                    <div class="mb-4">
-                        <h5 class="text-uppercase" style="color: var(--primary-color)">Oficina</h5>
-                        <p class="text-muted">Av. Providencia 1234, Santiago</p>
-                    </div>
                     <div class="mb-4">
                         <h5 class="text-uppercase" style="color: var(--primary-color)">Contacto Directo</h5>
                         <p class="text-muted">+56 9 5400 0528<br>contacto.gruporymspa@gmail.com</p>

@@ -61,3 +61,27 @@ class Proyecto(models.Model):
         
         # Guardamos el nuevo proyecto normalmente
         super().save(*args, **kwargs)
+
+
+
+class DatosEmpresa(models.Model):
+    nombre_empresa = models.CharField(max_length=100, default="Grupo R&M SpA")
+    telefono_visible = models.CharField(max_length=20, verbose_name="Teléfono (Visual)", help_text="Ej: +56 9 5400 0528")
+    whatsapp_numero = models.CharField(max_length=20, verbose_name="Número WhatsApp", help_text="Solo números, sin espacios ni símbolos. Ej: 56954000528")
+    correo_contacto = models.EmailField(verbose_name="Correo de Contacto")
+    instagram_link = models.URLField(verbose_name="Link de Instagram", blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Configuración de Contacto"
+        verbose_name_plural = "Configuración de Contacto"
+
+    def __str__(self):
+        return f"Datos de {self.nombre_empresa}"
+
+    # LÓGICA SINGLETON: Evitamos que creen 2 configuraciones distintas
+    def save(self, *args, **kwargs):
+        if not self.pk and DatosEmpresa.objects.exists():
+            # Si ya existe uno, no dejamos crear otro (o podrías actualizar el existente)
+            # Para simplificar, asumiremos que editarán el existente.
+            pass 
+        super().save(*args, **kwargs)

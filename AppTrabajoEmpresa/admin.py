@@ -1,23 +1,15 @@
 from django.contrib import admin
 from .models import FechaBloqueada
 from django.utils.html import format_html
-from .models import Proyecto
+from .models import Proyecto, DatosEmpresa
 
 @admin.register(FechaBloqueada)
 class FechaBloqueadaAdmin(admin.ModelAdmin):
-    # Columnas que se ven en la lista
     list_display = ('fecha', 'motivo_color', 'descripcion')
-    
-    # Filtros laterales para buscar rápido
     list_filter = ('motivo', 'fecha')
-    
-    # Barra de búsqueda
     search_fields = ('fecha', 'descripcion')
-    
-    # Navegación por fecha arriba de la lista
     date_hierarchy = 'fecha'
 
-    # Un toque pro: Colorear el motivo en la lista
     from django.utils.html import format_html
     def motivo_color(self, obj):
         colores = {
@@ -52,3 +44,9 @@ class FechaBloqueadaAdmin(admin.ModelAdmin):
 class ProyectoAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'categoria', 'fecha_creacion')
     list_filter = ('categoria',)
+
+
+@admin.register(DatosEmpresa)
+class DatosEmpresaAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        return not DatosEmpresa.objects.exists()

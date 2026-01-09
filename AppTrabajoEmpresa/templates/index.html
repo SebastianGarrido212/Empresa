@@ -177,15 +177,19 @@
 
                     <div class="mb-4">
                         <h5 class="text-uppercase" style="color: var(--primary-color)">Contacto Directo</h5>
-                        <p class="text-muted">+56 9 5400 0528<br>contacto.gruporymspa@gmail.com</p>
+                        <p class="text-muted">{{ empresa.telefono_visible }}<br>{{ empresa.correo_contacto }}</p>
                     </div>
 
                     <div class="d-flex gap-3 mt-4">
-                        <a href="#" class="btn btn-outline-dark rounded-circle" style="width:40px; height:40px;"><i
+                        {% if empresa.instagram_link %}
+                        <a href="{{ empresa.instagram_link }}" target="_blank"
+                            class="btn btn-outline-dark rounded-circle" style="width:40px; height:40px;"><i
                                 class="bi bi-instagram"></i></a>
+                        {% endif %}
                         <a href="#" class="btn btn-outline-dark rounded-circle" style="width:40px; height:40px;"><i
                                 class="bi bi-linkedin"></i></a>
-                        <a href="#" class="btn btn-outline-dark rounded-circle" style="width:40px; height:40px;"><i
+                        <a href="https://wa.me/{{ empresa.whatsapp_numero }}" target="_blank"
+                            class="btn btn-outline-dark rounded-circle" style="width:40px; height:40px;"><i
                                 class="bi bi-whatsapp"></i></a>
                     </div>
                 </div>
@@ -277,7 +281,7 @@
         </div>
 
         <footer class="py-4 text-center text-muted small bg-black">
-            &copy; 2025 Grupo R&M SPA. Todos los derechos reservados.
+            &copy; {% now "Y" %} {{ empresa.nombre_empresa }}. Todos los derechos reservados.
         </footer>
 
 
@@ -297,7 +301,7 @@
                     return;
                 }
 
-                var telefono = "56972315785";
+                var telefono = "{{ empresa.whatsapp_numero }}";
 
                 // Construimos el mensaje normal
                 var mensajeTexto = "Hola Grupo R&M, me interesa agendar una visita técnica.\n" +

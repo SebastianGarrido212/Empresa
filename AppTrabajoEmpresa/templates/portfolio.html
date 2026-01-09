@@ -23,7 +23,7 @@
         <div class="container-fluid px-5">
             <a class="navbar-brand fw-bold text-uppercase d-flex align-items-center gap-2" href="{% url 'LandPage' %}">
                 <img src="{% static 'img/Icon.jpg' %}" alt="Logo" height="40" class="d-inline-block align-text-top">
-                <span>Grupo <span style="color:var(--primary-color)">R&M Spa</span></span>
+                <span>{{ empresa.nombre_empresa }}</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -105,7 +105,7 @@
 
     <!-- FOOTER (Igual que en about.html) -->
     <footer class="py-4 text-center text-muted small bg-white border-top">
-        &copy; 2025 Grupo R&M SpA. Todos los derechos reservados.
+        &copy; {% now "Y" %} {{ empresa.nombre_empresa }}. Todos los derechos reservados.
     </footer>
 
     <!-- Scripts -->

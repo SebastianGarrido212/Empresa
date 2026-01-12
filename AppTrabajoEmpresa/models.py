@@ -29,6 +29,7 @@ class Proyecto(models.Model):
         ('construccion', 'Construcción'),
         ('remodelacion', 'Remodelación'),
         ('industrial', 'Industrial'),
+        ('demarcacion_vial', 'Demarcación Vial'),
     ]
 
     titulo = models.CharField(max_length=100, verbose_name="Título del Proyecto")

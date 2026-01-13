@@ -16,7 +16,7 @@
         /* --- ESTILOS ESPECÍFICOS DE ABOUT.HTML --- */
 
         body {
-            padding-top: 80px;
+            padding-top: 70px;
         }
 
         .text-primary {
@@ -121,7 +121,7 @@
         <div class="container-fluid px-5">
             <a class="navbar-brand fw-bold text-uppercase d-flex align-items-center gap-2" href="{% url 'LandPage' %}">
                 <img src="{% static 'img/Icon.jpg' %}" alt="Logo" height="40" class="d-inline-block align-text-top">
-                <span>{{ empresa.nombre_empresa }}</span>
+                <span>Grupo <span style="color:var(--primary-color)">R&M Spa</span></span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -129,7 +129,6 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav align-items-center">
                     <li class="nav-item"><a class="nav-link" href="{% url 'LandPage' %}">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Servicios</a></li>
                     <li class="nav-item ms-4">
                         <a href="{% url 'LandPage' %}#cotizar" class="btn btn-outline-primary fw-bold px-4">COTIZAR</a>
                     </li>

@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-j1_5lsk2^h_$9-7+rm=e3u6gpf!s7kxm)x$a4@7ew!oy_b*pw-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = ['empresa-i1di.onrender.com']
+ALLOWED_HOSTS = ['empresa-i1di.onrender.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -85,7 +85,10 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = dj_database_url.config(default='sqlite://db.sqlite3', conn_max_age=600, conn_health_checks=True)
+database_url_render = os.environ.get("DATABASE_URL")
+
+if database_url_render:
+    DATABASES['default'] = dj_database_url.parse(database_url_render, conn_max_age=600, conn_health_checks=True)
 
 
 # Password validation

@@ -26,6 +26,7 @@ urlpatterns = [
     path('', views.index, name='LandPage'),
     path('nosotros/', views.nosotros, name='Nosotros'),
     path('portfolio/', views.portfolio, name='Portfolio'),
+    path('productos/', views.productos, name='Productos'),
 ]
 
 if settings.DEBUG:

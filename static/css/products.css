@@ -1,0 +1,109 @@
+/* --- ESTILOS PÁGINA DE PRODUCTOS --- */
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding-bottom: 50px;
+}
+
+.product-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0; /* Diseño cuadrado/industrial */
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.product-img-wrapper {
+    position: relative;
+    padding-top: 75%; /* Aspect Ratio 4:3 */
+    background-color: #f1f5f9;
+    overflow: hidden;
+}
+
+.product-img-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-img-wrapper img {
+    transform: scale(1.05);
+}
+
+.product-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(14, 165, 233, 0.8); /* Primary color overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-card:hover .product-overlay {
+    opacity: 1;
+}
+
+.product-btn {
+    background-color: white;
+    color: var(--primary-color);
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.product-btn:hover {
+    background-color: #f8fafc;
+}
+
+.product-body {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.product-category {
+    font-size: 0.75rem;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.product-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: var(--text-light);
+}
+
+.product-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 0;
+}

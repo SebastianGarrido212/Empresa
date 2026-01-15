@@ -341,3 +341,56 @@
             display: inline-block;
             margin-right: 5px;
         }
+
+        .carousel-item {
+            height: 90vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            /* Efecto de desenfoque */
+            transform: scale(1.1);
+            /* Evitar bordes blancos por el desenfoque */
+            z-index: 1;
+        }
+
+        .carousel-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            /* Capa oscura para contraste */
+            z-index: 2;
+        }
+
+        .carousel-content {
+            position: relative;
+            z-index: 3;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero-text span {
+            color: var(--primary-color) !important;
+            /* Asegurar que resalte */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1) !important;
+            /* Sutil borde */
+        }

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Grupo R&M SpA</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/Icon.jpg' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- Estilos Globales -->
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+
+    <!-- Estilos Específicos de Productos -->
+    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+
+    <style>
+        body {
+            padding-top: 70px;
+            /* Fix navbar overlap */
+        }
+
+        .page-header {
+            height: 40vh;
+            background: linear-gradient(rgba(240, 249, 255, 0.9), rgba(224, 242, 254, 0.9)),
+            url('{% static "img/logo.png" %}');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                background: linear-gradient(rgba(240, 249, 255, 0.9), rgba(224, 242, 254, 0.9)),
+                url('{% static "img/BannerCelular.jpg" %}');
+                background-size: cover;
+                background-position: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand fw-bold text-uppercase d-flex align-items-center gap-2" href="{% url 'LandPage' %}">
+                <img src="{% static 'img/Icon.jpg' %}" alt="Logo" height="40" class="d-inline-block align-text-top">
+                <span>Grupo <span style="color:var(--primary-color)">R&M Spa</span></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'LandPage' %}">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Productos</a></li>
+                    <li class="nav-item ms-4">
+                        <a href="{% url 'LandPage' %}#cotizar" class="btn btn-outline-primary fw-bold px-4">COTIZAR</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="page-header">
+        <div class="container animate-enter">
+            <h1 class="display-4 fw-bold text-uppercase">Nuestros <span class="text-primary">Productos</span></h1>
+            <p class="lead text-muted mx-auto" style="max-width: 600px;">
+                Soluciones materiales y equipamiento de alta calidad para tus proyectos.
+            </p>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRODUCTOS -->
+    <section class="container products-grid">
+
+        <!-- Producto 1 -->
+        <div class="product-card animate-enter">
+            <div class="product-img-wrapper">
+                <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Producto+1" alt="Producto 1">
+                <div class="product-overlay">
+                    <button class="product-btn">Ver Detalles</button>
+                </div>
+            </div>
+            <div class="product-body">
+                <span class="product-category">Materiales</span>
+                <h3 class="product-title">Cemento Alta Resistencia</h3>
+                <p class="product-desc">Ideal para cimientos y estructuras que requieren máxima durabilidad.</p>
+            </div>
+        </div>
+
+        <!-- Producto 2 -->
+        <div class="product-card animate-enter">
+            <div class="product-img-wrapper">
+                <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Producto+2" alt="Producto 2">
+                <div class="product-overlay">
+                    <button class="product-btn">Ver Detalles</button>
+                </div>
+            </div>
+            <div class="product-body">
+                <span class="product-category">Herramientas</span>
+                <h3 class="product-title">Kit de Demarcación</h3>
+                <p class="product-desc">Equipo completo profesional para pintado vial y señalética.</p>
+            </div>
+        </div>
+
+        <!-- Producto 3 -->
+        <div class="product-card animate-enter">
+            <div class="product-img-wrapper">
+                <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Producto+3" alt="Producto 3">
+                <div class="product-overlay">
+                    <button class="product-btn">Ver Detalles</button>
+                </div>
+            </div>
+            <div class="product-body">
+                <span class="product-category">Seguridad</span>
+                <h3 class="product-title">Vallas Perimetrales</h3>
+                <p class="product-desc">Soluciones modulares para cierre temporal de obras.</p>
+            </div>
+        </div>
+
+        <!-- Producto 4 -->
+        <div class="product-card animate-enter">
+            <div class="product-img-wrapper">
+                <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Producto+4" alt="Producto 4">
+                <div class="product-overlay">
+                    <button class="product-btn">Ver Detalles</button>
+                </div>
+            </div>
+            <div class="product-body">
+                <span class="product-category">Equipamiento</span>
+                <h3 class="product-title">Generador Industrial</h3>
+                <p class="product-desc">Potencia confiable para faenas en lugares remotos.</p>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-4 text-center text-muted small bg-white border-top">
+        &copy; {% now "Y" %} {{ empresa.nombre_empresa }}. Todos los derechos reservados.
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/products.js' %}"></script>
+
+</body>
+
+</html>

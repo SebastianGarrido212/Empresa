@@ -1,8 +1,8 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grupo R&M SPA</title>
@@ -17,325 +17,410 @@
 </head>
 
 <body>
-    {% load static %}
-    <!-- ... Rest of the body content ... -->
-    </head>
-
-    <body>
-        {% load static %}
-        <nav class="navbar navbar-expand-lg fixed-top">
-            <div class="container-fluid px-5">
-                <a class="navbar-brand fw-bold text-uppercase d-flex align-items-center gap-2" href="#">
-                    <img src="{% static 'img/Icon.jpg' %}" alt="Logo" height="40" class="d-inline-block align-text-top">
-                    <span>Grupo <span style="color:var(--primary-color)">R&M Spa</span></span>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav align-items-center">
-                        <li class="nav-item"><a class="nav-link" href="#cotizar">Servicios</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="nosotros">Nosotros</a></li>
-                        <li class="nav-item ms-4">
-                            <a href="#cotizar" class="btn btn-outline-primary fw-bold px-4">COTIZAR</a>
-                        </li>
-                    </ul>
-                </div>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand fw-bold text-uppercase d-flex align-items-center gap-2" href="#">
+                <img src="{% static 'img/Icon.jpg' %}" alt="Logo" height="40" class="d-inline-block align-text-top">
+                <span>Grupo <span style="color:var(--primary-color)">R&M Spa</span></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#cotizar">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'Productos' %}">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="nosotros">Nosotros</a></li>
+                    <li class="nav-item ms-4">
+                        <a href="#cotizar" class="btn btn-outline-primary fw-bold px-4">COTIZAR</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
+    </nav>
 
-        <header class="hero-industrial">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 animate-enter">
-                        <div class="hero-text">
-                            <h1>Construimos<br><span style="color: var(--primary-color); -webkit-text-stroke: 0px;">El
-                                    Futuro</span></h1>
-                        </div>
-                        <p class="lead mt-4" style="max-width: 500px;">
-                            Especialistas en obras civiles y soluciones industriales.
-                            Donde la ingeniería se encuentra con el diseño.
-                        </p>
-                        <div class="mt-5 d-flex gap-3">
-                            <a class="btn btn-primary rounded-0 px-4"
-                                style="background: var(--primary-color); border:none;" href="{% url 'Portfolio' %}">VER
-                                OBRAS</a>
-                            <a class="btn btn-outline-dark rounded-0 px-4" href="#contacto">CONTACTO</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <section class="py-5" id="cotizar">
-            <div class="container py-5">
-                <div class="row align-items-center">
-                    <div class="col-lg-4 mb-4">
-                        <h2 class="display-4 fw-bold">Nuestros<br>Servicios</h2>
-                        <p class="text-muted">Soluciones integrales para cada etapa de tu proyecto.</p>
-                        <div class="p-4 mt-4" style="border: 1px dashed #cbd5e1; background-color: white;">
-                            <h4 style="color:var(--primary-color)">Visita Técnica</h4>
-                            <p class="small text-muted mb-3">Agenda una evaluación en terreno hoy mismo.</p>
-                            <button type="button" class="btn btn-sm btn-outline-dark w-100 rounded-0"
-                                data-bs-toggle="modal" data-bs-target="#modalAgendar">
-                                Agendar Ahora
-                            </button>
-                        </div>
-                        <!-- CALENDARIOS PREMIUM DOBLE VISUALIZACION -->
-                        <div class="d-flex gap-2 pt-4">
-                            <div id="cal-mes-1"></div>
-                            <div id="cal-mes-2"></div>
-                        </div>
-
-                        <!-- LEYENDA -->
-                        <div class="d-flex gap-4 mt-3 justify-content-center"
-                            style="font-size: 0.75rem; color: var(--text-muted);">
-                            <span class="d-flex align-items-center">
-                                <span class="legend-dot"
-                                    style="background-color: #f0f9ff; border: 1px solid var(--primary-color);"></span>
-                                Disponible
-                            </span>
-                            <span class="d-flex align-items-center">
-                                <span class="legend-dot"
-                                    style="background-color: #f1f5f9; border: 1px solid #cbd5e1;"></span>
-                                Ocupado
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-lg-7 offset-lg-1">
-                        <div class="service-list-item d-flex align-items-center">
-                            <i class="bi bi-cone-striped service-icon"></i>
-                            <div>
-                                <h3 class="h4 mb-1">Construcción General</h3>
-                                <p class="mb-0 text-muted small">Obras civiles, ampliaciones y obra gruesa.</p>
+    <!-- HERO CAROUSEL -->
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+                aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active hero-industrial"
+                style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{% if banner_proyectos.0.imagen %}{{ banner_proyectos.0.imagen.url }}{% else %}{% static 'img/logo.png' %}{% endif %}');">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-lg-8 animate-enter">
+                            <div class="hero-text">
+                                <h1 style="color: white; text-shadow: 2px 2px 8px rgba(0,0,0,1);">Construimos<br><span
+                                        style="color: white; font-weight: 800; text-shadow: 2px 2px 8px rgba(0,0,0,1);">El
+                                        Futuro</span></h1>
                             </div>
-                        </div>
-
-                        <div class="service-list-item d-flex align-items-center">
-                            <i class="bi bi-tools service-icon"></i>
-                            <div>
-                                <h3 class="h4 mb-1">Mantenimiento Industrial</h3>
-                                <p class="mb-0 text-muted small">Reparaciones correctivas y preventivas.</p>
-                            </div>
-                        </div>
-
-                        <div class="service-list-item d-flex align-items-center">
-                            <i class="bi bi-building-gear service-icon"></i>
-                            <div>
-                                <h3 class="h4 mb-1">Proyectos "Llave en Mano"</h3>
-                                <p class="mb-0 text-muted small">Nos encargamos desde el diseño hasta la entrega.</p>
+                            <p class="lead mt-4"
+                                style="max-width: 500px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,1); font-weight: 500;">
+                                Especialistas en obras civiles y soluciones industriales.
+                                Donde la ingeniería se encuentra con el diseño.
+                            </p>
+                            <div class="mt-5 d-flex gap-3">
+                                <a class="btn btn-primary rounded-0 px-4"
+                                    style="background: var(--primary-color); border:none;"
+                                    href="{% url 'Portfolio' %}">VER OBRAS</a>
+                                <a class="btn btn-outline-light rounded-0 px-4" href="#contacto">CONTACTO</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section class="py-5 bg-white" id="proyectos">
-            <div class="container-fluid px-0">
-                <div class="container mb-4 d-flex justify-content-between align-items-end">
-                    <h2 class="display-5 fw-bold">Últimos Proyectos</h2>
-                    <a href="{% url 'Portfolio' %}" class="text-muted text-decoration-none fw-bold">Ver más &rarr;</a>
-                </div>
-
-                <div class="portfolio-grid">
-                    {% for proyecto in ultimos_proyectos %}
-                    <div
-                        class="grid-item {% if forloop.counter == 1 %}item-large{% endif %} {% if forloop.counter == 4 %}item-wide{% endif %}">
-                        <span class="placeholder-text">0{{ forloop.counter }}</span>
-                        {% if proyecto.imagen %}
-                        <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.titulo }}"
-                            style="width:100%; height:100%; object-fit:cover;">
-                        {% else %}
-                        <div
-                            style="width:100%; height:100%; background: #cbd5e1; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">
-                            SIN IMAGEN</div>
-                        {% endif %}
-                        <div class="overlay">
-                            <h3>{{ proyecto.titulo }}</h3>
-                            <p>{{ proyecto.descripcion }}</p>
-                        </div>
-                    </div>
-                    {% empty %}
-                    <div class="col-12 text-center py-5">
-                        <p class="text-muted">Aún no hay proyectos cargados.</p>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
-
-
-        <section id="contacto">
-            <div class="row g-0">
-                <div
-                    class="col-lg-5 bg-light p-5 d-flex flex-column justify-content-center border-end border-secondary">
-                    <h2 class="fw-bold mb-4">¿Tienes un proyecto?</h2>
-                    <p class="lead text-muted mb-5">Hablemos de números. Solicita tu cotización.</p>
-
-                    <div class="mb-4">
-                        <h5 class="text-uppercase" style="color: var(--primary-color)">Contacto Directo</h5>
-                        <p class="text-muted">{{ empresa.telefono_visible }}<br>{{ empresa.correo_contacto }}</p>
-                    </div>
-
-                    <div class="d-flex gap-3 mt-4">
-                        {% if empresa.instagram_link %}
-                        <a href="{{ empresa.instagram_link }}" target="_blank"
-                            class="btn btn-outline-dark rounded-circle" style="width:40px; height:40px;"><i
-                                class="bi bi-instagram"></i></a>
-                        {% endif %}
-                        <a href="https://wa.me/{{ empresa.whatsapp_numero }}" target="_blank"
-                            class="btn btn-outline-dark rounded-circle" style="width:40px; height:40px;"><i
-                                class="bi bi-whatsapp"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-7 p-5" style="background-color: #ffffff;">
-                    <h3 class="fw-bold mb-2">Cobertura en Santiago</h3>
-                    <p class="text-muted mb-4">Llegamos a todas las comunas de la Región Metropolitana con nuestros
-                        servicios.</p>
-
-                    <div class="row g-0">
-                        <div class="col-md-6">
-                            <ul class="list-unstyled mb-0">
-                                <li class="mb-3 d-flex align-items-center text-muted"><i
-                                        class="bi bi-check-circle-fill text-primary me-3"></i>Santiago Centro</li>
-                                <li class="mb-3 d-flex align-items-center text-muted"><i
-                                        class="bi bi-check-circle-fill text-primary me-3"></i>Providencia</li>
-                                <li class="mb-3 d-flex align-items-center text-muted"><i
-                                        class="bi bi-check-circle-fill text-primary me-3"></i>Las Condes</li>
-                                <li class="mb-3 d-flex align-items-center text-muted"><i
-                                        class="bi bi-check-circle-fill text-primary me-3"></i>Vitacura</li>
-                                <li class="mb-3 d-flex align-items-center text-muted"><i
-                                        class="bi bi-check-circle-fill text-primary me-3"></i>Lo Barnechea</li>
-                                <li class="mb-3 d-flex align-items-center text-muted"><i
-                                        class="bi bi-check-circle-fill text-primary me-3"></i>Ñuñoa</li>
-                                <li class="mb-3 d-flex align-items-center text-muted"><i
-                                        class="bi bi-check-circle-fill text-primary me-3"></i>La Reina</li>
-                                <li class="mb-3 d-flex align-items-center text-muted"><i
-                                        class="bi bi-check-circle-fill text-primary me-3"></i>Peñalolén</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <ul class="list-unstyled mb-0">
-                                <li class="mb-3 d-flex align-items-center text-muted"><i
-                                        class="bi bi-check-circle-fill text-primary me-3"></i>Macul</li>
-                                <li class="mb-3 d-flex align-items-center text-muted"><i
-                                        class="bi bi-check-circle-fill text-primary me-3"></i>La Florida</li>
-                                <li class="mb-3 d-flex align-items-center text-muted"><i
-                                        class="bi bi-check-circle-fill text-primary me-3"></i>Puente Alto</li>
-                                <li class="mb-3 d-flex align-items-center text-muted"><i
-                                        class="bi bi-check-circle-fill text-primary me-3"></i>Maipú</li>
-                                <li class="mb-3 d-flex align-items-center text-muted"><i
-                                        class="bi bi-check-circle-fill text-primary me-3"></i>San Miguel</li>
-                                <li class="mb-3 d-flex align-items-center text-muted"><i
-                                        class="bi bi-check-circle-fill text-primary me-3"></i>Estación Central</li>
-                                <li class="mb-3 d-flex align-items-center text-muted"><i
-                                        class="bi bi-check-circle-fill text-primary me-3"></i>La Cisterna</li>
-                                <li class="mb-3 d-flex align-items-center text-muted"><i
-                                        class="bi bi-check-circle-fill text-primary me-3"></i>San Joaquín</li>
-                            </ul>
+            <!-- Slide 2 -->
+            <div class="carousel-item hero-industrial"
+                style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{% if banner_proyectos.1.imagen %}{{ banner_proyectos.1.imagen.url }}{% else %}{% static 'img/BannerCelular.jpg' %}{% endif %}');">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-lg-8">
+                            <div class="hero-text">
+                                <h1 style="color: white; text-shadow: 2px 2px 8px rgba(0,0,0,1);">Transformamos<br><span
+                                        style="color: white; font-weight: 800; text-shadow: 2px 2px 8px rgba(0,0,0,1);">Espacios</span>
+                                </h1>
+                            </div>
+                            <p class="lead mt-4"
+                                style="max-width: 500px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,1); font-weight: 500;">
+                                Abordamos cada desafío con experiencia y precisión.
+                                Soluciones integrales para la industria.
+                            </p>
+                            <div class="mt-5 d-flex gap-3">
+                                <a class="btn btn-primary rounded-0 px-4"
+                                    style="background: var(--primary-color); border:none;"
+                                    href="{% url 'Portfolio' %}">VER OBRAS</a>
+                                <a class="btn btn-outline-light rounded-0 px-4" href="#contacto">CONTACTO</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <div class="modal fade" id="modalAgendar" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content rounded-0 border-0 shadow-lg">
-                    <div class="modal-header text-white" style="background-color: var(--primary-color);">
-                        <h5 class="modal-title fw-bold"><i class="bi bi-whatsapp me-2"></i>Agendar por WhatsApp</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-4 bg-light">
-
-                        <p class="text-muted small mb-3">
-                            Completa los datos y te derivaremos a nuestro WhatsApp corporativo con la solicitud lista
-                            para
-                            enviar.
-                        </p>
-
-                        <form id="formWhatsApp">
-                            <div class="mb-3">
-                                <label class="form-label fw-bold small">Tu Nombre</label>
-                                <input type="text" class="form-control rounded-0" id="inputNombre" placeholder="">
+            <!-- Slide 3 -->
+            <div class="carousel-item hero-industrial"
+                style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{% if banner_proyectos.2.imagen %}{{ banner_proyectos.2.imagen.url }}{% else %}{% static 'img/logo.png' %}{% endif %}');">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-lg-8">
+                            <div class="hero-text">
+                                <h1 style="color: white; text-shadow: 2px 2px 8px rgba(0,0,0,1);">Excelencia en<br><span
+                                        style="color: white; font-weight: 800; text-shadow: 2px 2px 8px rgba(0,0,0,1);">Servicio</span>
+                                </h1>
                             </div>
-
-                            <div class="row g-2 mb-3">
-                                <div class="col-6">
-                                    <label class="form-label fw-bold small">Fecha Tentativa</label>
-                                    <input type="text" class="form-control rounded-0" id="inputFecha"
-                                        placeholder="Selecciona una fecha...">
-                                </div>
-                                <div class="col-6">
-                                    <label class="form-label fw-bold small">Jornada</label>
-                                    <select class="form-select rounded-0" id="inputHorario">
-                                        <option value="Mañana (09:00 - 13:00)">9:00 - 13:00</option>
-                                        <option value="Tarde (14:00 - 18:00)">14:00 - 18:00</option>
-                                    </select>
-                                </div>
+                            <p class="lead mt-4"
+                                style="max-width: 500px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,1); font-weight: 500;">
+                                Tu satisfacción es nuestro principal compromiso.
+                                Calidad garantizada en cada entrega.
+                            </p>
+                            <div class="mt-5 d-flex gap-3">
+                                <a class="btn btn-primary rounded-0 px-4"
+                                    style="background: var(--primary-color); border:none;"
+                                    href="{% url 'Portfolio' %}">VER OBRAS</a>
+                                <a class="btn btn-outline-light rounded-0 px-4" href="#contacto">CONTACTO</a>
                             </div>
-
-                            <div class="mb-4">
-                                <label class="form-label fw-bold small">Dirección de la Visita</label>
-                                <input type="text" class="form-control rounded-0" id="inputDireccion"
-                                    placeholder="Calle, Número, Comuna">
-                            </div>
-
-                            <div class="d-grid">
-                                <button type="button" class="btn btn-success rounded-0 py-3 fw-bold"
-                                    onclick="enviarWhatsApp()">
-                                    <i class="bi bi-whatsapp me-2"></i> Reservar
-                                </button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <footer class="py-4 text-center text-muted small bg-black">
-            &copy; {% now "Y" %} {{ empresa.nombre_empresa }}. Todos los derechos reservados.
-        </footer>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </div>
+
+    <section class="py-5" id="cotizar">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-4 mb-4">
+                    <h2 class="display-4 fw-bold">Nuestros<br>Servicios</h2>
+                    <p class="text-muted">Soluciones integrales para cada etapa de tu proyecto.</p>
+                    <div class="p-4 mt-4" style="border: 1px dashed #cbd5e1; background-color: white;">
+                        <h4 style="color:var(--primary-color)">Visita Técnica</h4>
+                        <p class="small text-muted mb-3">Agenda una evaluación en terreno hoy mismo.</p>
+                        <button type="button" class="btn btn-sm btn-outline-dark w-100 rounded-0" data-bs-toggle="modal"
+                            data-bs-target="#modalAgendar">
+                            Agendar Ahora
+                        </button>
+                    </div>
+                    <!-- CALENDARIOS PREMIUM DOBLE VISUALIZACION -->
+                    <div class="d-flex gap-2 pt-4">
+                        <div id="cal-mes-1"></div>
+                        <div id="cal-mes-2"></div>
+                    </div>
+
+                    <!-- LEYENDA -->
+                    <div class="d-flex gap-4 mt-3 justify-content-center"
+                        style="font-size: 0.75rem; color: var(--text-muted);">
+                        <span class="d-flex align-items-center">
+                            <span class="legend-dot"
+                                style="background-color: #f0f9ff; border: 1px solid var(--primary-color);"></span>
+                            Disponible
+                        </span>
+                        <span class="d-flex align-items-center">
+                            <span class="legend-dot"
+                                style="background-color: #f1f5f9; border: 1px solid #cbd5e1;"></span>
+                            Ocupado
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-7 offset-lg-1">
+                    <div class="service-list-item d-flex align-items-center">
+                        <i class="bi bi-cone-striped service-icon"></i>
+                        <div>
+                            <h3 class="h4 mb-1">Construcción General</h3>
+                            <p class="mb-0 text-muted small">Obras civiles, ampliaciones y obra gruesa.</p>
+                        </div>
+                    </div>
+
+                    <div class="service-list-item d-flex align-items-center">
+                        <i class="bi bi-tools service-icon"></i>
+                        <div>
+                            <h3 class="h4 mb-1">Mantenimiento Industrial</h3>
+                            <p class="mb-0 text-muted small">Reparaciones correctivas y preventivas.</p>
+                        </div>
+                    </div>
+
+                    <div class="service-list-item d-flex align-items-center">
+                        <i class="bi bi-building-gear service-icon"></i>
+                        <div>
+                            <h3 class="h4 mb-1">Proyectos "Llave en Mano"</h3>
+                            <p class="mb-0 text-muted small">Nos encargamos desde el diseño hasta la entrega.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-white" id="proyectos">
+        <div class="container-fluid px-0">
+            <div class="container mb-4 d-flex justify-content-between align-items-end">
+                <h2 class="display-5 fw-bold">Últimos Proyectos</h2>
+            </div>
+
+            <div class="portfolio-grid">
+                {% for proyecto in ultimos_proyectos %}
+                <div
+                    class="grid-item {% if forloop.counter == 1 %}item-large{% endif %} {% if forloop.counter == 4 %}item-wide{% endif %}">
+                    <span class="placeholder-text">0{{ forloop.counter }}</span>
+                    {% if proyecto.imagen %}
+                    <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.titulo }}"
+                        style="width:100%; height:100%; object-fit:cover;">
+                    {% else %}
+                    <div
+                        style="width:100%; height:100%; background: #cbd5e1; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">
+                        SIN IMAGEN</div>
+                    {% endif %}
+                    <div class="overlay">
+                        <h3>{{ proyecto.titulo }}</h3>
+                        <p>{{ proyecto.descripcion }}</p>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted">Aún no hay proyectos cargados.</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="container text-center mt-5">
+                <a href="{% url 'Portfolio' %}" class="btn px-4 py-2 fw-bold shadow-sm d-inline-flex align-items-center"
+                    style="background-color: #7dd3fc; color: #0f172a; border: none; font-size: 0.9rem;">
+                    VER MÁS PROYECTOS <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
 
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
-            var fechasDesdeDjango = JSON.parse('{{ fechas_ocupadas|default:"[]"|escapejs }}');
-        </script>
-        <script>
-            function enviarWhatsApp() {
-                var nombre = document.getElementById("inputNombre").value;
-                var fecha = document.getElementById("inputFecha").value;
-                var horario = document.getElementById("inputHorario").value;
-                var direccion = document.getElementById("inputDireccion").value;
+    <section id="contacto">
+        <div class="row g-0">
+            <div class="col-lg-5 bg-light p-5 d-flex flex-column justify-content-center border-end border-secondary">
+                <h2 class="fw-bold mb-4">¿Tienes un proyecto?</h2>
+                <p class="lead text-muted mb-5">Hablemos de números. Solicita tu cotización.</p>
 
-                if (nombre === "" || fecha === "" || direccion === "") {
-                    alert("Por favor completa todos los datos para generar el mensaje.");
-                    return;
-                }
+                <div class="mb-4">
+                    <h5 class="text-uppercase" style="color: var(--primary-color)">Contacto Directo</h5>
+                    <p class="text-muted">{{ empresa.telefono_visible }}<br>{{ empresa.correo_contacto }}</p>
+                </div>
 
-                var telefono = "{{ empresa.whatsapp_numero }}";
+                <div class="d-flex gap-3 mt-4">
+                    {% if empresa.instagram_link %}
+                    <a href="{{ empresa.instagram_link }}" target="_blank" class="btn btn-outline-dark rounded-circle"
+                        style="width:40px; height:40px;"><i class="bi bi-instagram"></i></a>
+                    {% endif %}
+                    <a href="https://wa.me/{{ empresa.whatsapp_numero }}" target="_blank"
+                        class="btn btn-outline-dark rounded-circle" style="width:40px; height:40px;"><i
+                            class="bi bi-whatsapp"></i></a>
+                </div>
+            </div>
 
-                // Construimos el mensaje normal
-                var mensajeTexto = "Hola Grupo R&M, me interesa agendar una visita técnica.\n" +
-                    "\nNombre: " + nombre +
-                    "\nFecha: " + fecha +
-                    "\nJornada: " + horario +
-                    "\nDirección: " + direccion +
-                    "\n\nQuedo atento a su confirmación.";
+            <div class="col-lg-7 p-5" style="background-color: #ffffff;">
+                <h3 class="fw-bold mb-2">Cobertura en Santiago</h3>
+                <p class="text-muted mb-4">Llegamos a todas las comunas de la Región Metropolitana con nuestros
+                    servicios.</p>
 
-                var mensajeCodificado = encodeURIComponent(mensajeTexto);
+                <div class="row g-0">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-3 d-flex align-items-center text-muted"><i
+                                    class="bi bi-check-circle-fill text-primary me-3"></i>Santiago Centro</li>
+                            <li class="mb-3 d-flex align-items-center text-muted"><i
+                                    class="bi bi-check-circle-fill text-primary me-3"></i>Providencia</li>
+                            <li class="mb-3 d-flex align-items-center text-muted"><i
+                                    class="bi bi-check-circle-fill text-primary me-3"></i>Las Condes</li>
+                            <li class="mb-3 d-flex align-items-center text-muted"><i
+                                    class="bi bi-check-circle-fill text-primary me-3"></i>Vitacura</li>
+                            <li class="mb-3 d-flex align-items-center text-muted"><i
+                                    class="bi bi-check-circle-fill text-primary me-3"></i>Lo Barnechea</li>
+                            <li class="mb-3 d-flex align-items-center text-muted"><i
+                                    class="bi bi-check-circle-fill text-primary me-3"></i>Ñuñoa</li>
+                            <li class="mb-3 d-flex align-items-center text-muted"><i
+                                    class="bi bi-check-circle-fill text-primary me-3"></i>La Reina</li>
+                            <li class="mb-3 d-flex align-items-center text-muted"><i
+                                    class="bi bi-check-circle-fill text-primary me-3"></i>Peñalolén</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-3 d-flex align-items-center text-muted"><i
+                                    class="bi bi-check-circle-fill text-primary me-3"></i>Macul</li>
+                            <li class="mb-3 d-flex align-items-center text-muted"><i
+                                    class="bi bi-check-circle-fill text-primary me-3"></i>La Florida</li>
+                            <li class="mb-3 d-flex align-items-center text-muted"><i
+                                    class="bi bi-check-circle-fill text-primary me-3"></i>Puente Alto</li>
+                            <li class="mb-3 d-flex align-items-center text-muted"><i
+                                    class="bi bi-check-circle-fill text-primary me-3"></i>Maipú</li>
+                            <li class="mb-3 d-flex align-items-center text-muted"><i
+                                    class="bi bi-check-circle-fill text-primary me-3"></i>San Miguel</li>
+                            <li class="mb-3 d-flex align-items-center text-muted"><i
+                                    class="bi bi-check-circle-fill text-primary me-3"></i>Estación Central</li>
+                            <li class="mb-3 d-flex align-items-center text-muted"><i
+                                    class="bi bi-check-circle-fill text-primary me-3"></i>La Cisterna</li>
+                            <li class="mb-3 d-flex align-items-center text-muted"><i
+                                    class="bi bi-check-circle-fill text-primary me-3"></i>San Joaquín</li>
+                        </ul>
+                    </div>
+                </div>
 
-                var url = "https://api.whatsapp.com/send?phone=" + telefono + "&text=" + mensajeCodificado;
+                <div class="mt-4 pt-3 border-top">
+                    <p class="text-muted mb-3"><i class="bi bi-info-circle me-2"></i>¡Y muchas más! Si tu comuna no
+                        aparece, contáctanos para confirmar disponibilidad.</p>
+                    <a href="https://wa.me/{{ empresa.whatsapp_numero }}?text=Hola,%20quisiera%20consultar%20si%20tienen%20cobertura%20en%20mi%20comuna..."
+                        target="_blank" class="btn btn-outline-success rounded-pill px-4 fw-bold">
+                        <i class="bi bi-whatsapp me-2"></i>Consultar comuna disponible
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                window.open(url, '_blank').focus();
+    <div class="modal fade" id="modalAgendar" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-0 border-0 shadow-lg">
+                <div class="modal-header text-white" style="background-color: var(--primary-color);">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-whatsapp me-2"></i>Agendar por WhatsApp</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 bg-light">
+
+                    <p class="text-muted small mb-3">
+                        Completa los datos y te derivaremos a nuestro WhatsApp corporativo con la solicitud lista
+                        para
+                        enviar.
+                    </p>
+
+                    <form id="formWhatsApp">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">Tu Nombre</label>
+                            <input type="text" class="form-control rounded-0" id="inputNombre" placeholder="">
+                        </div>
+
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label fw-bold small">Fecha Tentativa</label>
+                                <input type="text" class="form-control rounded-0" id="inputFecha"
+                                    placeholder="Selecciona una fecha...">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label fw-bold small">Jornada</label>
+                                <select class="form-select rounded-0" id="inputHorario">
+                                    <option value="Mañana (09:00 - 13:00)">9:00 - 13:00</option>
+                                    <option value="Tarde (14:00 - 18:00)">14:00 - 18:00</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold small">Dirección de la Visita</label>
+                            <input type="text" class="form-control rounded-0" id="inputDireccion"
+                                placeholder="Calle, Número, Comuna">
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="button" class="btn btn-success rounded-0 py-3 fw-bold"
+                                onclick="enviarWhatsApp()">
+                                <i class="bi bi-whatsapp me-2"></i> Reservar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-4 text-center text-muted small bg-white">
+        &copy; {% now "Y" %} {{ empresa.nombre_empresa }}. Todos los derechos reservados.
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var fechasDesdeDjango = JSON.parse('{{ fechas_ocupadas|default:"[]"|escapejs }}');
+    </script>
+    <script>
+        function enviarWhatsApp() {
+            var nombre = document.getElementById("inputNombre").value;
+            var fecha = document.getElementById("inputFecha").value;
+            var horario = document.getElementById("inputHorario").value;
+            var direccion = document.getElementById("inputDireccion").value;
+
+            if (nombre === "" || fecha === "" || direccion === "") {
+                alert("Por favor completa todos los datos para generar el mensaje.");
+                return;
             }
-        </script>
-        <script src="{% static 'js/main.js' %}?v=2"></script>
-    </body>
+
+            var telefono = "{{ empresa.whatsapp_numero }}";
+
+            // Construimos el mensaje normal
+            var mensajeTexto = "Hola Grupo R&M, me interesa agendar una visita técnica.\n" +
+                "\nNombre: " + nombre +
+                "\nFecha: " + fecha +
+                "\nJornada: " + horario +
+                "\nDirección: " + direccion +
+                "\n\nQuedo atento a su confirmación.";
+
+            var mensajeCodificado = encodeURIComponent(mensajeTexto);
+
+            var url = "https://api.whatsapp.com/send?phone=" + telefono + "&text=" + mensajeCodificado;
+
+            window.open(url, '_blank').focus();
+        }
+    </script>
+    <script src="{% static 'js/main.js' %}?v=2"></script>
+</body>
 
 </html>

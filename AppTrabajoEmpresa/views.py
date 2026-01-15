@@ -21,10 +21,16 @@ def index(request):
     # 4. Convertir a lista y serializar
     lista_final = list(todas_fechas)
     fechas_json = json.dumps(lista_final)
+    
+    # Proyectos para el carrusel (Top 3)
+    banner_proyectos = Proyecto.objects.all()[:3]
+    
+    # Proyectos para la grilla (Top 4)
     ultimos_proyectos = Proyecto.objects.all()[:4]
 
     context = {
         'fechas_ocupadas': fechas_json,
+        'banner_proyectos': banner_proyectos,
         'ultimos_proyectos': ultimos_proyectos
     }
     
@@ -34,6 +40,7 @@ def nosotros(request):
     return render(request, 'about.html')
 
 
+
 def portfolio(request):
     todos_los_proyectos = Proyecto.objects.all()
     
@@ -41,3 +48,6 @@ def portfolio(request):
         'proyectos': todos_los_proyectos
     }
     return render(request, 'portfolio.html', context)
+
+def productos(request):
+    return render(request, 'products.html')

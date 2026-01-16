@@ -71,6 +71,19 @@ class DatosEmpresa(models.Model):
     whatsapp_numero = models.CharField(max_length=20, verbose_name="Número WhatsApp", help_text="Solo números, sin espacios ni símbolos. Ej: 56954000528")
     correo_contacto = models.EmailField(verbose_name="Correo de Contacto")
     instagram_link = models.URLField(verbose_name="Link de Instagram", blank=True, null=True)
+    video_youtube = models.URLField(verbose_name="Enlace Video YouTube", blank=True, null=True, help_text="Ej: https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+    video_descripcion = models.CharField(max_length=200, verbose_name="Descripción del Video", blank=True, null=True, help_text="Texto corto debajo del video")
+
+    def get_video_embed_url(self):
+        if not self.video_youtube:
+            return None
+        import re
+        # Extraer ID de URLs comunes
+        regex = r'(?:v=|/)([0-9A-Za-z_-]{11}).*'
+        match = re.search(regex, self.video_youtube)
+        if match:
+            return f"https://www.youtube.com/embed/{match.group(1)}?rel=0"
+        return self.video_youtube # Retorna original si no hace match (ej: ya es embed)
 
     class Meta:
         verbose_name = "Configuración de Contacto"
@@ -86,3 +99,19 @@ class DatosEmpresa(models.Model):
             # Para simplificar, asumiremos que editarán el existente.
             pass 
         super().save(*args, **kwargs)
+
+
+class Producto(models.Model):
+    nombre = models.CharField(max_length=100, verbose_name="Nombre del Producto")
+    imagen = models.ImageField(upload_to='productos/', verbose_name="Imagen del Producto")
+    precio = models.IntegerField(verbose_name="Precio", blank=True, null=True, help_text="Opcional. Si se deja vacío, se puede mostrar 'Consultar'.")
+    descripcion = models.TextField(verbose_name="Descripción", blank=True, null=True)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Producto"
+        verbose_name_plural = "Productos en Venta"
+        ordering = ['-fecha_creacion']
+
+    def __str__(self):
+        return self.nombre

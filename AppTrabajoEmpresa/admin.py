@@ -50,3 +50,25 @@ class ProyectoAdmin(admin.ModelAdmin):
 class DatosEmpresaAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         return not DatosEmpresa.objects.exists()
+
+
+from .models import Producto
+
+@admin.register(Producto)
+class ProductoAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'precio_formato', 'imagen_preview', 'fecha_creacion')
+    search_fields = ('nombre', 'descripcion')
+    list_filter = ('fecha_creacion',)
+    readonly_fields = ('imagen_preview',)
+
+    def precio_formato(self, obj):
+        if obj.precio:
+            return f"${obj.precio:,}".replace(",", ".")
+        return "Consultar"
+    precio_formato.short_description = "Precio"
+
+    def imagen_preview(self, obj):
+        if obj.imagen:
+            return format_html('<img src="{}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;" />', obj.imagen.url)
+        return "Sin imagen"
+    imagen_preview.short_description = "Vista Previa"

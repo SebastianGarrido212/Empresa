@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import json
 from datetime import date
-from .models import FechaBloqueada, Proyecto
+from .models import FechaBloqueada, Proyecto, Producto
 from .utils import obtener_feriados
 
 # Create your views here.
@@ -26,12 +26,17 @@ def index(request):
     banner_proyectos = Proyecto.objects.all()[:3]
     
     # Proyectos para la grilla (Top 4)
+    # Proyectos para la grilla (Top 4)
     ultimos_proyectos = Proyecto.objects.all()[:4]
+    
+    # Productos destacados (Top 5)
+    ultimos_productos = Producto.objects.all()[:5]
 
     context = {
         'fechas_ocupadas': fechas_json,
         'banner_proyectos': banner_proyectos,
-        'ultimos_proyectos': ultimos_proyectos
+        'ultimos_proyectos': ultimos_proyectos,
+        'ultimos_productos': ultimos_productos
     }
     
     return render(request, 'index.html', context)
@@ -50,4 +55,8 @@ def portfolio(request):
     return render(request, 'portfolio.html', context)
 
 def productos(request):
-    return render(request, 'products.html')
+    todos_productos = Producto.objects.all()
+    context = {
+        'productos': todos_productos
+    }
+    return render(request, 'products.html', context)

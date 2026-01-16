@@ -24,8 +24,8 @@
 
         .page-header {
             height: 40vh;
-            background: linear-gradient(rgba(240, 249, 255, 0.9), rgba(224, 242, 254, 0.9)),
-            url('{% static "img/logo.png" %}');
+            background: linear-gradient(rgba(240, 249, 255, 0.5), rgba(224, 242, 254, 0.5)),
+            url('{% static "img/bannerProducts.jpg" %}');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -38,7 +38,7 @@
 
         @media (max-width: 768px) {
             .page-header {
-                background: linear-gradient(rgba(240, 249, 255, 0.9), rgba(224, 242, 254, 0.9)),
+                background: linear-gradient(rgba(240, 249, 255, 0.5), rgba(224, 242, 254, 0.5)),
                 url('{% static "img/BannerCelular.jpg" %}');
                 background-size: cover;
                 background-position: center;
@@ -74,8 +74,10 @@
     <!-- HEADER -->
     <header class="page-header">
         <div class="container animate-enter">
-            <h1 class="display-4 fw-bold text-uppercase">Nuestros <span class="text-primary">Productos</span></h1>
-            <p class="lead text-muted mx-auto" style="max-width: 600px;">
+            <h1 class="display-4 fw-bold text-uppercase" style="text-shadow: 2px 2px 4px rgba(255,255,255,1);">Nuestros
+                <span class="text-primary" style="text-shadow: 1px 1px 2px rgba(255,255,255,0.8);">Productos</span></h1>
+            <p class="lead fw-semibold mx-auto"
+                style="max-width: 600px; color: #1e293b; text-shadow: 1px 1px 2px rgba(255,255,255,0.8);">
                 Soluciones materiales y equipamiento de alta calidad para tus proyectos.
             </p>
         </div>
@@ -84,65 +86,44 @@
     <!-- CONTENIDO PRODUCTOS -->
     <section class="container products-grid">
 
-        <!-- Producto 1 -->
+        {% if productos %}
+        {% for producto in productos %}
         <div class="product-card animate-enter">
             <div class="product-img-wrapper">
-                <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Producto+1" alt="Producto 1">
+                {% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}"
+                    style="width: 100%; height: 100%; object-fit: cover;">
+                {% else %}
+                <div class="d-flex align-items-center justify-content-center bg-light text-muted h-100">
+                    <i class="bi bi-box-seam fs-1"></i>
+                </div>
+                {% endif %}
                 <div class="product-overlay">
-                    <button class="product-btn">Ver Detalles</button>
+                    <a href="https://wa.me/{{ empresa.whatsapp_numero }}?text=Hola,%20quisiera%20más%20información%20sobre%20el%20producto:%20{{ producto.nombre }}"
+                        target="_blank" class="product-btn text-decoration-none"
+                        style="display:inline-block; line-height:35px; color:black;">Cotizar</a>
                 </div>
             </div>
             <div class="product-body">
-                <span class="product-category">Materiales</span>
-                <h3 class="product-title">Cemento Alta Resistencia</h3>
-                <p class="product-desc">Ideal para cimientos y estructuras que requieren máxima durabilidad.</p>
+                {% if producto.precio %}
+                <span class="product-category text-primary fw-bold">${{ producto.precio|floatformat:0 }}</span>
+                {% else %}
+                <span class="product-category text-muted">Consultar</span>
+                {% endif %}
+                <h3 class="product-title">{{ producto.nombre }}</h3>
+                {% if producto.descripcion %}
+                <p class="product-desc">{{ producto.descripcion|truncatechars:80 }}</p>
+                {% endif %}
             </div>
         </div>
-
-        <!-- Producto 2 -->
-        <div class="product-card animate-enter">
-            <div class="product-img-wrapper">
-                <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Producto+2" alt="Producto 2">
-                <div class="product-overlay">
-                    <button class="product-btn">Ver Detalles</button>
-                </div>
-            </div>
-            <div class="product-body">
-                <span class="product-category">Herramientas</span>
-                <h3 class="product-title">Kit de Demarcación</h3>
-                <p class="product-desc">Equipo completo profesional para pintado vial y señalética.</p>
-            </div>
+        {% endfor %}
+        {% else %}
+        <!-- Estado vacío (Placeholder) -->
+        <div class="col-12 text-center py-5">
+            <i class="bi bi-inbox fs-1 text-muted mb-3"></i>
+            <h3 class="h5 text-muted">Próximamente agregaremos nuestros productos.</h3>
         </div>
-
-        <!-- Producto 3 -->
-        <div class="product-card animate-enter">
-            <div class="product-img-wrapper">
-                <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Producto+3" alt="Producto 3">
-                <div class="product-overlay">
-                    <button class="product-btn">Ver Detalles</button>
-                </div>
-            </div>
-            <div class="product-body">
-                <span class="product-category">Seguridad</span>
-                <h3 class="product-title">Vallas Perimetrales</h3>
-                <p class="product-desc">Soluciones modulares para cierre temporal de obras.</p>
-            </div>
-        </div>
-
-        <!-- Producto 4 -->
-        <div class="product-card animate-enter">
-            <div class="product-img-wrapper">
-                <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Producto+4" alt="Producto 4">
-                <div class="product-overlay">
-                    <button class="product-btn">Ver Detalles</button>
-                </div>
-            </div>
-            <div class="product-body">
-                <span class="product-category">Equipamiento</span>
-                <h3 class="product-title">Generador Industrial</h3>
-                <p class="product-desc">Potencia confiable para faenas en lugares remotos.</p>
-            </div>
-        </div>
+        {% endif %}
 
     </section>
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import json
 from datetime import date
-from .models import FechaBloqueada, Proyecto, Producto
+from .models import FechaBloqueada, Proyecto, Producto, Testimonio
 from .utils import obtener_feriados
 
 # Create your views here.
@@ -32,14 +32,40 @@ def index(request):
     # Productos destacados (Top 5)
     ultimos_productos = Producto.objects.all()[:5]
 
+    # Testimonios aprobados
+    testimonios = Testimonio.objects.filter(aprobado=True)
+
     context = {
         'fechas_ocupadas': fechas_json,
         'banner_proyectos': banner_proyectos,
         'ultimos_proyectos': ultimos_proyectos,
-        'ultimos_productos': ultimos_productos
+        'ultimos_productos': ultimos_productos,
+        'testimonios': testimonios
     }
     
     return render(request, 'index.html', context)
+
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+
+@require_POST
+def guardar_testimonio(request):
+    try:
+        data = json.loads(request.body)
+        nombre = data.get('nombre')
+        comentario = data.get('comentario')
+        
+        if not comentario:
+            return JsonResponse({'success': False, 'error': 'El comentario es obligatorio'}, status=400)
+            
+        Testimonio.objects.create(
+            nombre=nombre if nombre else None, # Si viene vacío, guarda Null
+            comentario=comentario
+        )
+        
+        return JsonResponse({'success': True, 'message': 'Testimonio recibido. Pendiente de aprobación.'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
 
 def nosotros(request):
     return render(request, 'about.html')

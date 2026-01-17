@@ -27,6 +27,7 @@ urlpatterns = [
     path('nosotros/', views.nosotros, name='Nosotros'),
     path('portfolio/', views.portfolio, name='Portfolio'),
     path('productos/', views.productos, name='Productos'),
+    path('api/guardar-testimonio/', views.guardar_testimonio, name='guardar_testimonio'),
 ]
 
 if settings.DEBUG:

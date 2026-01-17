@@ -72,3 +72,15 @@ class ProductoAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;" />', obj.imagen.url)
         return "Sin imagen"
     imagen_preview.short_description = "Vista Previa"
+
+from .models import Testimonio
+
+@admin.register(Testimonio)
+class TestimonioAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'comentario_preview', 'aprobado', 'fecha_creacion')
+    list_filter = ('aprobado', 'fecha_creacion')
+    list_editable = ('aprobado',)
+    search_fields = ('nombre', 'comentario')
+
+    def comentario_preview(self, obj):
+        return obj.comentario[:50] + "..." if len(obj.comentario) > 50 else obj.comentario

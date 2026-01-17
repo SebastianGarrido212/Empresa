@@ -349,6 +349,137 @@
         </div>
     </section>
 
+
+    <!-- SECCIÓN TESTIMONIOS (MARQUEE INFINITO) -->
+    <section class="py-5 bg-white border-top" id="testimonios">
+        <div class="container-fluid mb-5 overflow-hidden">
+            <h2 class="text-center fw-bold mb-5"><i class="bi bi-star-fill text-warning me-2"></i>Lo que dicen nuestros
+                clientes</h2>
+
+            {% if testimonios %}
+            <div class="marquee-container">
+                <div class="marquee-content">
+                    {% for testimonio in testimonios %}
+                    <div class="testimonial-card">
+                        <i class="bi bi-quote testimonial-quote-icon"></i>
+                        <div class="d-flex text-warning mb-3">
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="text-secondary mb-3 fst-italic fs-5">"{{ testimonio.comentario }}"</p>
+                        <div class="d-flex align-items-center justify-content-between mt-auto">
+                            <p class="fw-bold mb-0 text-dark">{{ testimonio.nombre|default:"Anónimo" }}</p>
+                            <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2 small"><i
+                                    class="bi bi-person-check-fill me-1"></i>Cliente Verificado</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- DUPLICADOS PARA SCROLL INFINITO -->
+                    {% for testimonio in testimonios %}
+                    <div class="testimonial-card">
+                        <i class="bi bi-quote testimonial-quote-icon"></i>
+                        <div class="d-flex text-warning mb-3">
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="text-secondary mb-3 fst-italic fs-5">"{{ testimonio.comentario }}"</p>
+                        <div class="d-flex align-items-center justify-content-between mt-auto">
+                            <p class="fw-bold mb-0 text-dark">{{ testimonio.nombre|default:"Anónimo" }}</p>
+                            <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2 small"><i
+                                    class="bi bi-person-check-fill me-1"></i>Cliente Verificado</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% else %}
+            <div class="text-center text-muted py-5">
+                <p>Aún no hay testimonios aprobados para mostrar.</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Formulario (Front-end + JS) -->
+        <div class="container" style="max-width: 600px;">
+            <div class="bg-light p-4 rounded-3 border">
+                <h5 class="fw-bold mb-3 d-flex align-items-center"><i
+                        class="bi bi-chat-square-quote-fill me-2 text-primary"></i>Déjanos tu opinión</h5>
+                <form id="testimonioForm">
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-bold">Nombre (Opcional)</label>
+                        <input type="text" id="testimonioNombre" class="form-control"
+                            placeholder="Escribe tu nombre o déjalo en blanco para ser Anónimo">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-bold">Comentario (Máx 100 caracteres)</label>
+                        <textarea id="testimonioComentario" class="form-control" rows="3" maxlength="100"
+                            placeholder="Cuéntanos tu experiencia..." style="resize: none;"></textarea>
+                        <div class="text-end text-muted small mt-1"><span id="charCount">0</span>/100</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 fw-bold shadow-sm">Enviar Comentario</button>
+                    <p class="text-center mt-2 small text-muted fst-italic">* Tu comentario será revisado antes de
+                        publicarse.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('testimonioForm');
+            const comentarioInput = document.getElementById('testimonioComentario');
+            const charCount = document.getElementById('charCount');
+
+            if (comentarioInput) {
+                comentarioInput.addEventListener('input', function () {
+                    charCount.textContent = this.value.length;
+                });
+            }
+
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    const nombre = document.getElementById('testimonioNombre').value;
+                    const comentario = comentarioInput.value.trim();
+
+                    if (!comentario) {
+                        alert('Por favor escribe un comentario.');
+                        return;
+                    }
+
+                    fetch('{% url "guardar_testimonio" %}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify({
+                            nombre: nombre,
+                            comentario: comentario
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('¡Gracias! Tu comentario ha sido enviado y lo revisaremos pronto.');
+                                form.reset();
+                                charCount.textContent = '0';
+                            } else {
+                                alert('Error: ' + (data.error || 'Desconocido'));
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('Ocurrió un error al enviar el comentario.');
+                        });
+                });
+            }
+        });
+    </script>
+
     <section id="contacto">
         <div class="row g-0">
             <div class="col-lg-5 bg-light p-5 d-flex flex-column justify-content-center border-end border-secondary">
@@ -364,6 +495,10 @@
                     {% if empresa.instagram_link %}
                     <a href="{{ empresa.instagram_link }}" target="_blank" class="btn btn-outline-dark rounded-circle"
                         style="width:40px; height:40px;"><i class="bi bi-instagram"></i></a>
+                    {% endif %}
+                    {% if empresa.tiktok_link %}
+                    <a href="{{ empresa.tiktok_link }}" target="_blank" class="btn btn-outline-dark rounded-circle"
+                        style="width:40px; height:40px;"><i class="bi bi-tiktok"></i></a>
                     {% endif %}
                     <a href="https://wa.me/{{ empresa.whatsapp_numero }}" target="_blank"
                         class="btn btn-outline-dark rounded-circle" style="width:40px; height:40px;"><i

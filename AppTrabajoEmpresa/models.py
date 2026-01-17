@@ -71,6 +71,7 @@ class DatosEmpresa(models.Model):
     whatsapp_numero = models.CharField(max_length=20, verbose_name="Número WhatsApp", help_text="Solo números, sin espacios ni símbolos. Ej: 56954000528")
     correo_contacto = models.EmailField(verbose_name="Correo de Contacto")
     instagram_link = models.URLField(verbose_name="Link de Instagram", blank=True, null=True)
+    tiktok_link = models.URLField(verbose_name="Link de TikTok", blank=True, null=True)
     video_youtube = models.URLField(verbose_name="Enlace Video YouTube", blank=True, null=True, help_text="Ej: https://www.youtube.com/watch?v=dQw4w9WgXcQ")
     video_descripcion = models.CharField(max_length=200, verbose_name="Descripción del Video", blank=True, null=True, help_text="Texto corto debajo del video")
 
@@ -115,3 +116,18 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
+
+
+class Testimonio(models.Model):
+    nombre = models.CharField(max_length=100, blank=True, null=True, help_text="Dejar en blanco para 'Anónimo'")
+    comentario = models.TextField(max_length=100)
+    aprobado = models.BooleanField(default=False, help_text="Marcar para mostrar en el sitio web")
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Testimonio"
+        verbose_name_plural = "Testimonios"
+        ordering = ['-fecha_creacion']
+
+    def __str__(self):
+        return f"{self.nombre or 'Anónimo'} - {self.comentario[:30]}..."

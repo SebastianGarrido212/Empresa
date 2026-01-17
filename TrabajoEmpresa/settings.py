@@ -18,11 +18,13 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
+# CONFIGURACIÓN DE SEGURIDAD
+# IMPORTANTE: En producción, manten 'SECRET_KEY' en secreto y DEBUG=False
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-j1_5lsk2^h_$9-7+rm=e3u6gpf!s7kxm)x$a4@7ew!oy_b*pw-'
+# La clave secreta debe ser única y secreta. 
+# En un entorno real de producción, se recomienda usar variables de entorno:
+# SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-...')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-j1_5lsk2^h_$9-7+rm=e3u6gpf!s7kxm)x$a4@7ew!oy_b*pw-')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ

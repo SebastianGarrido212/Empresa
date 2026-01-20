@@ -436,12 +436,105 @@
             right: 20px;
         }
 
-        @keyframes scroll-left {
+        /* --- CROSSFADE SLIDESHOW (ÚLTIMOS PROYECTOS) --- */
+        .project-slideshow {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            background-color: #000;
+            /* Fondo negro para evitar blanco durante transiciones */
+        }
+
+        .project-slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            object-fit: cover;
+        }
+
+        /* CASO 1: UNA SOLA IMAGEN (Estática) */
+        .project-slide:only-child {
+            opacity: 1;
+            position: relative;
+            /* Restaura flujo */
+        }
+
+        /* CASO 2: DOS IMÁGENES (Ciclo de 8s) */
+        .project-slide:nth-last-child(2):first-child,
+        .project-slide:nth-last-child(2):first-child~.project-slide {
+            animation: fadeLoop2 10s infinite;
+        }
+
+        .project-slide:nth-last-child(2):first-child {
+            animation-delay: 0s;
+        }
+
+        .project-slide:nth-last-child(2):first-child~.project-slide:nth-child(2) {
+            animation-delay: 5s;
+        }
+
+        @keyframes fadeLoop2 {
             0% {
-                transform: translateX(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            45% {
+                opacity: 1;
+            }
+
+            55% {
+                opacity: 0;
             }
 
             100% {
-                transform: translateX(-50%);
+                opacity: 0;
+            }
+        }
+
+        /* CASO 3: TRES IMÁGENES (Ciclo de 15s) */
+        .project-slide:nth-last-child(3):first-child,
+        .project-slide:nth-last-child(3):first-child~.project-slide {
+            animation: fadeLoop3 15s infinite;
+        }
+
+        .project-slide:nth-last-child(3):first-child {
+            animation-delay: 0s;
+        }
+
+        .project-slide:nth-last-child(3):first-child~.project-slide:nth-child(2) {
+            animation-delay: 5s;
+        }
+
+        .project-slide:nth-last-child(3):first-child~.project-slide:nth-child(3) {
+            animation-delay: 10s;
+        }
+
+        @keyframes fadeLoop3 {
+            0% {
+                opacity: 0;
+            }
+
+            6% {
+                opacity: 1;
+            }
+
+            33% {
+                opacity: 1;
+            }
+
+            40% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 0;
             }
         }

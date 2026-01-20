@@ -246,17 +246,27 @@
                 <div
                     class="grid-item {% if forloop.counter == 1 %}item-large{% endif %} {% if forloop.counter == 4 %}item-wide{% endif %}">
                     <span class="placeholder-text">0{{ forloop.counter }}</span>
-                    {% if proyecto.imagen %}
-                    <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.titulo }}"
-                        style="width:100%; height:100%; object-fit:cover;">
-                    {% else %}
-                    <div
-                        style="width:100%; height:100%; background: #cbd5e1; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;">
-                        SIN IMAGEN</div>
-                    {% endif %}
+
+                    <div class="project-slideshow">
+                        {% if proyecto.imagen %}
+                        <img src="{{ proyecto.imagen.url }}" class="project-slide" alt="{{ proyecto.titulo }}">
+                        {% endif %}
+                        {% if proyecto.imagen_2 %}
+                        <img src="{{ proyecto.imagen_2.url }}" class="project-slide" alt="{{ proyecto.titulo }}">
+                        {% endif %}
+                        {% if proyecto.imagen_3 %}
+                        <img src="{{ proyecto.imagen_3.url }}" class="project-slide" alt="{{ proyecto.titulo }}">
+                        {% endif %}
+
+                        {% if not proyecto.imagen %}
+                        <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Sin+Imagen" class="project-slide"
+                            alt="Sin Imagen">
+                        {% endif %}
+                    </div>
+
                     <div class="overlay">
-                        <h3>{{ proyecto.titulo }}</h3>
-                        <p>{{ proyecto.descripcion }}</p>
+                        <h3 class="h4 fw-bold">{{ proyecto.titulo }}</h3>
+                        <p class="mb-0">{{ proyecto.descripcion }}</p>
                     </div>
                 </div>
                 {% empty %}

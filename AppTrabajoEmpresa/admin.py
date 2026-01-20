@@ -42,7 +42,7 @@ class FechaBloqueadaAdmin(admin.ModelAdmin):
 
 @admin.register(Proyecto)
 class ProyectoAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'categoria', 'fecha_creacion')
+    list_display = ('titulo', 'categoria', 'fecha_creacion', 'imagen', 'imagen_2', 'imagen_3')
     list_filter = ('categoria',)
 
 

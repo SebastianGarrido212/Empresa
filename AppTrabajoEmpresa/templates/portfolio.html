@@ -82,9 +82,42 @@
                             {% else %}
                             <img src="https://placehold.co/600x400/e2e8f0/64748b?text=Sin+Imagen" alt="Sin Imagen">
                             {% endif %}
+
+                            <!-- Generamos lista de imágenes para JS -->
+                            {% with images_list=proyecto.imagen.url %}
+                            {% if proyecto.imagen_2 %}
+                            {% with images_list=images_list|add:","|add:proyecto.imagen_2.url %}
+                            {% if proyecto.imagen_3 %}
+                            {% with images_list=images_list|add:","|add:proyecto.imagen_3.url %}
                             <div class="project-overlay">
-                                <a href="#" class="project-overlay-btn"><i class="bi bi-zoom-in"></i></a>
+                                <a href="#" class="project-overlay-btn" data-title="{{ proyecto.titulo }}"
+                                    data-desc="{{ proyecto.descripcion }}" data-images="{{ images_list }}"
+                                    onclick="openGallery(this); return false;">
+                                    <i class="bi bi-zoom-in"></i>
+                                </a>
                             </div>
+                            {% endwith %}
+                            {% else %}
+                            <div class="project-overlay">
+                                <a href="#" class="project-overlay-btn" data-title="{{ proyecto.titulo }}"
+                                    data-desc="{{ proyecto.descripcion }}" data-images="{{ images_list }}"
+                                    onclick="openGallery(this); return false;">
+                                    <i class="bi bi-zoom-in"></i>
+                                </a>
+                            </div>
+                            {% endif %}
+                            {% endwith %}
+                            {% else %}
+                            <div class="project-overlay">
+                                <a href="#" class="project-overlay-btn" data-title="{{ proyecto.titulo }}"
+                                    data-desc="{{ proyecto.descripcion }}" data-images="{{ images_list }}"
+                                    onclick="openGallery(this); return false;">
+                                    <i class="bi bi-zoom-in"></i>
+                                </a>
+                            </div>
+                            {% endif %}
+                            {% endwith %}
+
                         </div>
                         <div class="project-body">
                             <span class="project-category">{{ proyecto.get_categoria_display }}</span>
@@ -102,24 +135,100 @@
             </div>
     </section>
 
-    <!-- Lightbox Modal -->
-    <div id="lightbox" class="lightbox">
-        <span class="close-lightbox">&times;</span>
-        <div class="lightbox-content-wrapper">
-            <img class="lightbox-content" id="img-lightbox">
-            <div id="caption" class="lightbox-caption"></div>
+    <!-- GALLERY MODAL -->
+    <div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-transparent border-0 shadow-none">
+                <div class="modal-body p-0 position-relative">
+                    <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 z-3"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+
+                    <div id="carouselGallery" class="carousel slide" data-bs-ride="false">
+                        <div class="carousel-inner rounded-3 shadow-lg" id="galleryCarouselInner">
+                            <!-- Items injected via JS -->
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselGallery"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselGallery"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Siguiente</span>
+                        </button>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <h5 class="text-white fw-bold mb-1" id="galleryTitle">Titulo</h5>
+                        <p class="text-white-50 small" id="galleryDesc">Descripción</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- FOOTER (Igual que en about.html) -->
-    <footer class="py-4 text-center text-muted small bg-white border-top">
+    <!-- FOOTER -->
+    <footer class="py-4 text-center text-muted small bg-light border-top">
         &copy; {% now "Y" %} {{ empresa.nombre_empresa }}. Todos los derechos reservados.
     </footer>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // JS para filtrar (existente) + Galería (nuevo)
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterBtns = document.querySelectorAll('.portfolio-filter-btn');
+            const items = document.querySelectorAll('.portfolio-item');
 
-    <script src="{% static 'js/portfolio.js' %}?v=2"></script>
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    items.forEach(item => {
+                        const category = item.getAttribute('data-category');
+                        if (filter === 'all' || category === filter) {
+                            item.style.display = 'block';
+                            // Animation fade in could go here
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+
+        // --- LIGHTBOX GALLERY LOGIC ---
+        function openGallery(element) {
+            const title = element.getAttribute('data-title');
+            const desc = element.getAttribute('data-desc');
+            const imagesStr = element.getAttribute('data-images');
+            const images = imagesStr.split(',');
+
+            document.getElementById('galleryTitle').textContent = title;
+            document.getElementById('galleryDesc').textContent = desc;
+
+            const carouselInner = document.getElementById('galleryCarouselInner');
+            carouselInner.innerHTML = ''; // Clear previous
+
+            images.forEach((imgUrl, index) => {
+                const isActive = index === 0 ? 'active' : '';
+                const item = `
+                    <div class="carousel-item ${isActive}">
+                        <img src="${imgUrl}" class="d-block w-100" style="max-height: 80vh; object-fit: contain; background-color: #000;" alt="${title}">
+                    </div>
+                `;
+                carouselInner.insertAdjacentHTML('beforeend', item);
+            });
+
+            const myModal = new bootstrap.Modal(document.getElementById('galleryModal'));
+            myModal.show();
+        }
+    </script>
 </body>
 
 </html>

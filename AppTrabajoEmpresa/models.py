@@ -36,6 +36,8 @@ class Proyecto(models.Model):
     descripcion = models.CharField(max_length=200, blank=True, verbose_name="Descripción Corta")
     categoria = models.CharField(max_length=20, choices=CATEGORIAS, default='construccion')
     imagen = models.ImageField(upload_to='proyectos/', verbose_name="Foto del Proyecto")
+    imagen_2 = models.ImageField(upload_to='proyectos/', verbose_name="Foto Extra 1 (Opcional)", blank=True, null=True)
+    imagen_3 = models.ImageField(upload_to='proyectos/', verbose_name="Foto Extra 2 (Opcional)", blank=True, null=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True) # Se llena solo con la fecha actual
 
     class Meta:

@@ -139,10 +139,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 
-# En Render, si montamos el disco en /media, debemos decirle a Django que guarde ahí.
-# BASE_DIR es /opt/render/project/src, por lo tanto os.path.join(BASE_DIR, 'media')
-# guardaría en /opt/render/project/src/media (EFÍMERO).
-# Necesitamos que guarde en /media (PERSISTENTE).
+
+# /opt/render/project/src/media (EFÍMERO).
+# /media (PERSISTENTE).
 
 if 'RENDER' in os.environ:
     MEDIA_ROOT = '/media/'

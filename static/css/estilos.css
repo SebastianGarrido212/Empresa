@@ -190,6 +190,10 @@
             opacity: 0;
             transition: opacity 0.4s ease;
             color: white;
+            text-align: center;
+            /* Centrar texto multilínea */
+            padding: 20px;
+            /* Evitar que el texto toque los bordes */
         }
 
         .grid-item:hover .overlay {
